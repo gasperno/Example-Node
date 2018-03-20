@@ -23,15 +23,15 @@ hsubraveti/Example-Node:
   PkgExclude:
     - node_modules/
 
-  PreInstall:
-    - echo "---Begining PreInstall---"
-    - echo "--Installing deploy dependencies--"
-    - echo "-Updating apt-get-"
-    - sudo apt-get -y update
-    - echo "-Installing nodejs-"
-    - sudo apt-get -y install nodejs
-    - echo "-Installing npm-"
-    - sudo apt-get -y install npm
+#  PreInstall:
+#    - echo "---Begining PreInstall---"
+#    - echo "--Installing deploy dependencies--"
+#    - echo "-Updating apt-get-"
+#    - sudo apt-get -y update
+#    - echo "-Installing nodejs-"
+#    - sudo apt-get -y install nodejs
+#    - echo "-Installing npm-"
+#    - sudo apt-get -y install npm
 
   PostInstall:
     - echo "Begin PostInstall"
@@ -42,4 +42,4 @@ hsubraveti/Example-Node:
     - PORT: 3000
 
   Exec:
-    - /usr/bin/nodejs app.js
+    - node app.js
