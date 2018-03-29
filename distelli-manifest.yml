@@ -1,21 +1,23 @@
 hsubraveti/Example-Node:
   # Distelli Manifest example
   # this example assumes the build and deploy servers are:
-  # Ubuntu 14.04 
+  # Ubuntu 14.04
+  Env:
+    - PORT: "3000"
 
   PreRelease:
     - echo "---Beginning PreRelease---"
     - echo "--Installing build dependencies--"
     - echo "-Updating apt-get-"
-    - sudo apt-get -y update
+#    - sudo apt-get -y update
     - echo "-Installing nodejs-"
-    - sudo apt-get -y install nodejs
+#    - sudo apt-get -y install nodejs
     - echo "-Installing npm-"
-    - sudo apt-get -y install npm
+#    - sudo apt-get -y install npm
     - echo "--Building--"
-    - npm install
+#    - npm install
     - echo "--Testing--"
-    - npm test
+#    - npm test
 
   PkgInclude:
     - '*'
@@ -23,11 +25,15 @@ hsubraveti/Example-Node:
   PkgExclude:
     - node_modules/
 
-#  PreInstall:
-#    - echo "---Begining PreInstall---"
-#    - echo "--Installing deploy dependencies--"
-#    - echo "-Updating apt-get-"
+  PreInstall:
+    - echo "---Begining PreInstall---"
+    - echo "--Installing deploy dependencies--"
+    - echo "-Run puppet agent"
+    - puppet agent --test > %DISTELLI_INSTALLHOME%\puppet_log.txt | exit 0
 #    - sudo apt-get -y update
+    - echo "puppet agent done"
+    -  type %DISTELLI_INSTALLHOME%\puppet_log.txt
+    - echo "over"
 #    - echo "-Installing nodejs-"
 #    - sudo apt-get -y install nodejs
 #    - echo "-Installing npm-"
@@ -37,9 +43,6 @@ hsubraveti/Example-Node:
     - echo "Begin PostInstall"
     - echo "alsdfjadslkfjadsklfjaklsdfjasldkfjadslkfjasdlkfjaksdlfjalsdkfjkdsfjkdfjkdjfkdjfkdjfladkjfaldskfjadsalsdfjadslkfjadsklfjaklsdfjasldkfjadslkfjasdlkfjaksdlfjalsdkfjkdsfjkdfjkdjfkdjfkdjfladkjfaldskfjadsalsdfjadslkfjadsklfjaklsdfjasldkfjadslkfjasdlkfjaksdlfjalsdkfjkdsfjkdfjkdjfkdjfkdjfladkjfaldskfjadsalsdfjadslkfjadsklfjaklsdfjasldkfjadslkfjasdlkfjaksdlfjalsdkfjkdsfjkdfjkdjfkdjfkdjfladkjfaldskfjadsalsdfjadslkfjadsklfjaklsdfjasldkfjadslkfjasdlkfjaksdlfjalsdkfjkdsfjkdfjkdjfkdjfkdjfladkjfaldskfjads"
     - npm install
-
-  Env:
-    - PORT: 3000
 
   Exec:
     - node app.js
